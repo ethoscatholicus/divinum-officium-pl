@@ -1,3 +1,81 @@
+# Divinum Officium - Polska Wersja
+
+Fork projektu Divinum Officium dostosowany do potrzeb polskich użytkowników, z domyślnymi ustawieniami języka polskiego i tekstami przedreformowymi (pre-1955).
+
+
+## Funkcje specjalne
+
+- **Polska lokalizacja** - domyślnie drugi język aktywny i ustawiony na polski (obok łaciny)
+- **Teksty tradycyjne** - wersje przedreformowe (pre-1955) jako domyślne
+- **Prosta instalacja** - zautomatyzowany proces - przez Dockera
+- **Elastyczna konfiguracja** - możliwość wyboru portu
+
+
+## Instalacja
+
+### Wymagania wstępne
+- System Linux
+- Zainstalowany Docker
+- Uprawnienia sudo
+
+### Kroki instalacyjne (Docker Container)
+
+1. Sklonuj repozytorium:
+   ```bash
+   git clone https://github.com/ethoscatholicus/divinum-officium-pl.git
+   cd divinum-officium-pl
+   ```
+
+2. Przygotuj skrypt instalacyjny:
+   ```bash
+   chmod +x deploy.sh
+   ```
+
+3. Uruchom proces instalacji:
+   ```bash
+   ./deploy.sh
+   ```
+
+   Skrypt przeprowadzi Cię przez proces konfiguracji:
+   - Poprosi o podanie numeru portu (domyślnie 80)
+   - Zapisze konfigurację w pliku `deploy.cfg`
+
+## Konfiguracja
+
+Po instalacji aplikacja będzie dostępna pod adresem:
+- `http://localhost:[wybrany_port]` (lokalnie)
+- skonfiguruj następnie serwer www, aby mógł korzystać z tak skonfigurowanego endpointu
+
+
+## Współtworzenie
+
+Zapraszamy do współpracy poprzez:
+- Zgłaszanie uwag w zakładce Issues
+- Przysyłanie propozycji zmian jako Pull Requests
+
+## Licencja
+
+Projekt dostępny na licencji MIT, zgodnie z licencją oryginalnego projektu.
+
+## Pomoc techniczna
+
+W przypadku problemów:
+1. Sprawdź czy Docker działa poprawnie
+2. Upewnij się że masz uprawnienia do wybranego portu
+3. W razie potrzeby zmodyfikuj ustawienia w pliku `deploy.cfg` i uruchom skrypt ponownie
+
+Skrypt `deploy.sh` automatycznie wykrywa architekturę systemu i dostosowuje proces instalacji do Twojego środowiska.
+Ponowne jego uruchomienie odświeża kontener dockera, np. gdy wprowadzamy zmiany w samym projekcie.
+Aby ponownie wybrać domenę i port, usuń `deploy.cfg` i odpal ponownie `deploy.sh`
+
+Implementację można zobaczyć na żywo tutaj:
+
+[brewiarz.etosweb.pl](https://brewiarz.etosweb.pl)
+
+
+Poniżej oryginalny zapis Readme projektu
+
+---
 # divinum-officium
 
 Data files and source code for the
