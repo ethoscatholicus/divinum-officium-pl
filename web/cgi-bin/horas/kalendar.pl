@@ -101,10 +101,12 @@ set_runtime_options('parameters');    # priest, lang1 ... etc
 $setupsave = savesetup(1);
 $setupsave =~ s/\r*\n*//g;
 
-our $version1 = check_version(our $version) || (error("Unknown version: $version1") && 'Rubrics 1960 - 1960');
+our $version1 = check_version(our $version) || (error("Unknown version: $version") && 'Divino Afflatu - 1954');
 our $version2 = check_version($version2) || '';
-if ($version1 eq $version2) { $version2 = 'Divino Afflatu - 1954'; }
-if ($version1 eq $version2) { $version2 = 'Rubrics 1960 - 1960'; }
+
+if ($version1 eq $version2) {    $version2 = 'Divino Afflatu - 1954';}
+if ($version1 eq $version2) {    $version2 = 'Rubrics 1960 - 1960';}
+
 
 my ($xmonth, $xday, $xyear) = split('-', strictparam($date_arg) || gettoday());
 our $kmonth = strictparam('kmonth') || $xmonth;

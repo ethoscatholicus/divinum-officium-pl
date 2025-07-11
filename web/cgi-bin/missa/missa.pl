@@ -110,10 +110,10 @@ set_runtime_options('parameters');    # priest, lang1 ... etc
 if ($command eq 'changeparameters') { getsetupvalue($command); }
 
 #print "Content-type: text/html; charset=utf-8\n\n"; <= uncomment for debuggin "Internal Server Errors"
-$version = check_version($version, $missa) || (error("Unknown version: $version") && 'Rubrics 1960 - 1960');
+$version = check_version($version, $missa) || (error("Unknown version: $version") && 'Divino Afflatu - 1939');
 $lang1 = check_language($lang1) || (error("Unknown language: $lang1") && 'Latin');
-$lang2 = check_language($lang2) || 'English';
-$langfb = check_language($langfb) || 'English';
+$lang2 = check_language($lang2) || 'Polski';
+$langfb = check_language($langfb) || 'Polski';
 
 setcookies('missap', 'parameters');
 setcookies('missag', 'general');

@@ -33,7 +33,7 @@ our $Ck = 0;
 our $missa = 1;
 our $NewMass = 0;
 our $officium = 'Emissa.pl';
-our $version = 'Rubrics 1960 - 1960';
+our $version = 'Divino Afflatu - 1939';
 
 #***common variables arrays and hashes
 #filled  getweek()
@@ -164,8 +164,8 @@ if (!$first) {
   $solemn = strictparam('solemn');
 }
 
-if (!$version) { $version = 'Rubrics 1960 - 1960'; }
-if (!$lang2) { $lang2 = 'Latin'; }
+if (!$version) { $version = 'Divino Afflatu - 1939'; }
+if (!$lang2) { $lang2 = 'Polski'; }
 
 # save parameters
 $setupsave =~ s/\r*\n*//g;

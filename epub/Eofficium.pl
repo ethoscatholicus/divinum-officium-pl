@@ -34,7 +34,7 @@ our $Tk = 0;
 our $Hk = 0;
 our $Ck = 0;
 our $officium = 'Eofficium.pl';
-our $version = 'Rubrics 1960';
+our $version = 'Divino Afflatu';
 
 @versions = ('Trident 1570', 'Trident 1910', 'Divino Afflatu', 'Reduced 1955', 'Rubrics 1960', '1960 Newcalendar');
 
@@ -182,8 +182,8 @@ if ($flag) {
   setsetup('general', $expand, $version, $lang2, $accented);
   setcookies('horasgp', 'general');
 }
-if (!$version) { $version = 'Rubrics 1960'; }
-if (!$lang2) { $lang2 = 'English'; }
+if (!$version) { $version = 'Divino Afflatu'; }
+if (!$lang2) { $lang2 = 'Polski'; }
 $only = ($lang1 =~ $lang2) ? 1 : 0;
 
 setmdir($version);
@@ -247,7 +247,7 @@ if ($command =~ /setup/i) {
   $hora = $command;
   if (substr($title, -1) =~ /a/i) { $title .= 'm'; }
 
-  $head = ($title =~ /(Ante|Post)/i) ? "$title divinum officium" : "Ad $title";
+  $head = ($title =~ /(Ante|Post)/i) ? "$title katolicka liturgia godzin" : "Ad $title";
   $head =~ s/Ad Vesperam/Ad Vesperas/i;
 
   $headline = setheadline();

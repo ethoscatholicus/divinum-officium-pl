@@ -119,16 +119,16 @@ set_runtime_options('parameters');                    # priest, lang1 ... etc
 if ($command =~ s/changeparameters//) { getsetupvalue($command); }
 
 #print "Content-type: text/html; charset=utf-8\n\n"; #<= uncomment for debuggin "Internal Server Errors"
-$version = check_version($version) || (error("Unknown version: $version") && 'Rubrics 1960 - 1960');
+$version = check_version($version) || (error("Unknown version: $version") && 'Divino Afflatu - 1954');
 $lang1 = check_language($lang1) || (error("Unknown language: $lang1") && 'Latin');
-$lang2 = check_language($lang2) || 'English';
-$langfb = check_language($langfb) || 'English';
+$lang2 = check_language($lang2) || 'Polski';
+$langfb = check_language($langfb) || 'Polski';
 
 # option Pius XII psalter changes Latin to Latin-Bea
-if ($psalmvar) {
-  $lang1 = 'Latin-Bea' if $lang1 eq 'Latin' && $lang2 ne 'Latin-Bea';
-  $lang2 = 'Latin-Bea' if $lang2 eq 'Latin' && $lang1 ne 'Latin-Bea';
-}
+#if ($psalmvar) {
+#  $lang1 = 'Latin-Bea' if $lang1 eq 'Latin' && $lang2 ne 'Latin-Bea';
+#  $lang2 = 'Latin-Bea' if $lang2 eq 'Latin' && $lang1 ne 'Latin-Bea';
+#}
 
 our $plures = strictparam('plures');
 my @horas = ();
@@ -153,12 +153,13 @@ setcookies('horasp', 'parameters');
 setcookies("horasg$cookies_suffix", 'general');
 
 if ($Ck) {
-  $version1 = $version;    # save value for use in horas
-  $version2 = check_version($version2);
-  $version2 ||= $version;
-  if ($version eq $version2) { $version2 = 'Divino Afflatu - 1954'; }
-  if ($version eq $version2) { $version2 = 'Rubrics 1960 - 1960'; }
-  $lang1 = $lang2 = $langc;
+$version1 = check_version(our $version) || (error("Unknown version: $version") && 'Divino Afflatu - 1954');
+$version2 = check_version($version2) || '';
+
+if ($version1 eq $version2) {    $version2 = 'Divino Afflatu - 1954';}
+if ($version1 eq $version2) {    $version2 = 'Rubrics 1960 - 1960';}
+
+  ##$lang1 = $lang2 = $langc;
 }
 
 # save parameters

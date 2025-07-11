@@ -1,56 +1,57 @@
-FROM public.ecr.aws/docker/library/alpine:3.14 as gitinfo
-
+# Etap 1 - Informacje o git (bez zmian)
+FROM public.ecr.aws/docker/library/alpine:3.14 AS gitinfo
 RUN apk add git
 COPY .git /build/
 WORKDIR /build
+RUN echo "{\"commit\":\"$(git rev-parse HEAD)\",\"branch\":\"$(git rev-parse --abbrev-ref HEAD)\"}" > /build/buildinfo
 
-# Write build info to be available at $url/buildinfo
-RUN echo "{" > /build/buildinfo
-RUN echo "  \"build-date\": \"`date +%s`\"," >> /build/buildinfo
-RUN echo "  \"build-date-human\": \"`date`\"," >> /build/buildinfo
-RUN echo "  \"commit\": \"`git rev-parse HEAD`\"," >> /build/buildinfo
-RUN echo "  \"branch\": \"`git rev-parse --abbrev-ref HEAD`\"" >> /build/buildinfo
-RUN echo "}" >> /build/buildinfo
+# Etap 2 - Główny obraz
+FROM public.ecr.aws/docker/library/perl:5.28-slim AS final
 
-# Final container (copies in /out/buildinfo when done)
-FROM public.ecr.aws/docker/library/perl:5.28-slim as final
-
-# Set envs
-ENV APACHE_RUN_USER www-data \
-    APACHE_RUN_GROUP www-data \
-    APACHE_LOCK_DIR /var/lock/apache2 \
-    APACHE_LOG_DIR /var/log/apache2 \
-    APACHE_PID_FILE /var/run/apache2/apache2.pid \
-    APACHE_SERVER_NAME localhost
-
-# Install packages
-RUN apt-get update && apt-get install -y \
-    curl \
-    wget \
-    apache2 \
-    libcgi-session-perl \
+# Instalacja wymaganych pakietów
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Get dumb-init to use a proper init system
-RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64 && \
-    chmod +x /usr/local/bin/dumb-init
+# Pobranie i instalacja dumb-init z weryfikacją
+RUN set -eux; \
+    ARCH=$(dpkg --print-architecture); \
+    case "${ARCH}" in \
+        amd64) DL_ARCH=x86_64 ;; \
+        arm64) DL_ARCH=aarch64 ;; \
+        *) echo "Unsupported architecture: ${ARCH}"; exit 1 ;; \
+    esac; \
+    wget -O /tmp/dumb-init \
+        "https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_${DL_ARCH}"; \
+    # Weryfikacja rozmiaru pliku
+    if [ $(stat -c%s /tmp/dumb-init) -lt 50000 ]; then \
+        echo "Downloaded file is too small, likely corrupted"; exit 1; \
+    fi; \
+    mv /tmp/dumb-init /usr/local/bin/dumb-init; \
+    chmod +x /usr/local/bin/dumb-init; \
+    # Test wykonania
+    /usr/local/bin/dumb-init --version
 
-# Load config files
-COPY docker/apache/ports.conf /etc/apache2/ports.conf
-COPY docker/apache/apache2.conf /etc/apache2/apache2.conf
+# Reszta konfiguracji (bez zmian)
+ENV APACHE_RUN_USER=www-data \
+    APACHE_RUN_GROUP=www-data \
+    APACHE_LOG_DIR=/var/log/apache2
 
-# Set permissionsso apache can write to logs without root
-RUN mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2 ; chown -R www-data:www-data /var/lock/apache2 /var/log/apache2 /var/run/apache2
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget ca-certificates curl \
+    apache2 libcgi-session-perl \
+    && rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /var/run/apache2 && \
+    chown -R www-data:www-data /var/run/apache2
 
-# Copy in code
-WORKDIR /var/www
+
+COPY docker/apache/ports.conf /etc/apache2/
+COPY docker/apache/apache2.conf /etc/apache2/
 COPY --chown=www-data:www-data web /var/www/web
-
-# Write build info to be available at $url/buildinfo
 COPY --from=gitinfo /build/buildinfo /var/www/web/buildinfo
 
-# Expose default port
-EXPOSE 80
+EXPOSE 5057
 
+# Zmieniamy ENTRYPOINT i CMD na bardziej niezawodne
 ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
-CMD ["/usr/sbin/apache2ctl", "-DFOREGROUND"]
+CMD ["sh", "-c", "exec /usr/sbin/apache2ctl -DFOREGROUND"]

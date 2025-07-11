@@ -14,14 +14,14 @@ $screenheight='1024';;
 $textwidth='100';;
 $nofancychars='0';;
 $building='0';;
-$langfb='English'
+$langfb='Polski'
 
 [parameterscheck]
 ttobcccccccnnbbt
 
 [general]
-$version='Rubrics 1960 - 1960';;
-$lang2='English';;
+$version='Divino Afflatu - 1939';;
+$lang2='Polski';;
 $votive='Hodie';;
 $rubrics='1';;
 $solemn='0';;
@@ -30,10 +30,10 @@ $solemn='0';;
 ooobb
 
 [generalc]
-$version1='Rubrics 1960 - 1960';;
-$version2='New Mass';;
+$version1='Divino Afflatu - 1939';;
+$version2='Divino Afflatu - 1954';;
 $lang1='Latin';;
-$lang2='Latin';;
+$lang2='Polski';;
 
 [generalccheck]
 oooo

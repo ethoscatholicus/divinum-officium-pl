@@ -110,7 +110,7 @@ if (!$filename1) {
 }
 
 $lang2 = strictparam('lang2');    #the second column
-if (!$lang2 || $lang2 !~ /(latin|english|magyar|none|search)/i) { $lang2 = 'none'; }
+if (!$lang2 || $lang2 !~ /(latin|english|magyar|none|search)/i) { $lang2 = 'polski'; }
 if ($folder1 =~ /program/i && $lang2 !~ /search/i) { $lang2 = 'none'; }
 $folder2 = strictparam('folder2');
 
