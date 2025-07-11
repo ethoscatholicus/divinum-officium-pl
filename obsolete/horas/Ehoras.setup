@@ -18,8 +18,8 @@ bbtbtcccccccnn
 
 [general]
 $expand='psalms';;
-$version='Rubrics 1960';;
-$lang2='English';;
+$version='Divino Afflatu';;
+$lang2='Polski';;
 $accented='plain';;
 
 [generalcheck]
@@ -28,8 +28,8 @@ oooo
 [generalc]
 $expand='psalms';;
 $version1='Divino Afflatu';;
-$version2='Rubrics 1960';;
-$lang2='English';;
+$version2='Reduced 1955';;
+$lang2='Polski';;
 $accented='plain';;
 
 [generalccheck]

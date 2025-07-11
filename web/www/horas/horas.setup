@@ -18,7 +18,7 @@ $nonumbers='0';;
 $nofancychars='0';;
 $noinnumbers='1';;
 $noflexa='1';;
-$langfb='English';;
+$langfb='Polski';;
 $testmode='Proper';;
 
 [parameterscheck]
@@ -26,8 +26,8 @@ bbtbbbtcccccnnbbbbbtt
 
 [general]
 $expand='tota';;
-$version='Rubrics 1960 - 1960';;
-$lang2='English';;
+$version='Divino Afflatu';;
+$lang2='Polski';;
 $votive='Hodie';;
 
 [generalcheck]

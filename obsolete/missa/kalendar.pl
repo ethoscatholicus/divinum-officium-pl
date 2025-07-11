@@ -96,7 +96,7 @@ $command = strictparam('command');
 if ($command =~ /(Ante|Matutinum|Laudes|Prima|Tertia|Sexta|Nona|Vespera|Completorium|Past)/i) { $command = "pray$1"; }
 
 if ($officium =~ /brevi/) {
-  $version = 'Rubrics 1960';
+  $version = 'Divino Afflatu';
   @versions = ($version);
 } else {
   $version = strictparam('version');
@@ -110,7 +110,7 @@ if ($officium =~ /brevi/) {
     '1960 Newcalendar',
   );
 }
-if (!$version) { $version = ($version1) ? $version1 : 'Rubrics 1960'; }
+if (!$version) { $version = ($version1) ? $version1 : 'Divino Afflatu'; }
 setmdir($version);
 $testmode = strictparam('testmode');
 $kmonth = strictparam('kmonth');

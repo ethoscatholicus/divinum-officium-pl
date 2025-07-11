@@ -108,7 +108,7 @@ if ($command =~ /(Ante|Matutinum|Laudes|Prima|Tertia|Sexta|Nona|Vespera|Completo
 $version1 = strictparam('version1');
 $version2 = strictparam('version2');
 if (!$version1) { $version1 = 'Divino Afflatu'; }
-if (!$version2) { $version2 = 'Rubrics 1960'; }
+if (!$version2) { $version2 = 'Reduced 1955'; }
 $testmode = strictparam('testmode');
 $kmonth = strictparam('kmonth');
 $kyear = strictparam('kyear');
@@ -121,7 +121,8 @@ if (!$kyear) { $kyear = $year; }
 );
 @monthlength = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 $title = "Ordo: $monthnames[$kmonth-1] $kyear";
-@daynames = ('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fry', 'Sat');
+#***@daynames = ('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fry', 'Sat');
+@daynames = ('Ndz', 'Pon', 'Wt', 'Śr', 'Czw',  'Pt', 'Sob');
 
 #*** generate HTML
 htmlHead($title, 2);

@@ -167,8 +167,8 @@ PrintTag
 if ($command !~ /setup/i) {
   print "<P ALIGN='CENTER'>";
   print option_selector("Version 1", "parchange();", $version1, @versions);
-  print option_selector("lang1", "parchange();", $lang1, qw(Latin English));
-  print option_selector("lang2", "parchange();", $lang2, qw(Latin English));
+  print option_selector("lang1", "parchange();", $lang1, qw(Latin Polski));
+  print option_selector("lang2", "parchange();", $lang2, qw(Latin Polski));
   print option_selector("Version 2", "parchange();", $version2, @versions);
 }
 
